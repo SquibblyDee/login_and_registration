@@ -17,22 +17,68 @@
                 <form action="/process", method='post'>
                     <div class="form-group">
                         <label for="input_first_name">First name:</label>
+                        <!-- loop through our flash messages and filter them for "Email" -->
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {%if "First" in message %}
+                                    <p>{{message}}<p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                         <input type="text" name="input_first_name" class="form-control" id="input_first_name" placeholder="Enter first name">
                     </div>
                     <div class="form-group">
                         <label for="input_last_name">Last name:</label>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {%if "Last" in message %}
+                                    <p>{{message}}<p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                         <input type="text" name="input_last_name" class="form-control" id="input_last_name" placeholder="Enter last name">
                     </div>
                     <div class="form-group">
                         <label for="input_email">Email:</label>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {%if "taken" in message %}
+                                    <p>{{message}}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                         <input type="email" name="input_email" class="form-control" id="input_email" placeholder="Enter email">
                     </div>
                     <div class="form-group">
                         <label for="input_password">Password:</label>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {%if "8" in message %}
+                                    <p>{{message}}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                         <input type="password" name="input_password" class="form-control" id="input_password" placeholder="Password">
                     </div>
                     <div class="form-group">
                         <label for="input__confirm_password">Confirm password:</label>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {%if "match" in message %}
+                                    <p>{{message}}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                         <input type="password" name="input_confirm_password" class="form-control" id="input_confirm_password" placeholder="Password">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>

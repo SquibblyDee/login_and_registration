@@ -1,0 +1,21 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    outline: 1px solid red;
+}
+
+.heading{
+    margin: 2% 0% 2% 0%;
+}
+
+.registration{
+    width: 45%;
+    display: inline-block;
+    margin-right: 3%;
+}
+
+.login{
+    width: 45%;
+    display: inline-block;
+    vertical-align: top;
+}

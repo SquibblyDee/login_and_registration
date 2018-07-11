@@ -1,8 +1,12 @@
 from flask import Flask, render_template, request, redirect, flash, session
+from flask_bcrypt import Bcrypt
 # import the function connectToMySQL from the file mysqlconnection.py
 from mysqlconnection import connectToMySQL
 app = Flask(__name__)
 app.secret_key="louisianapurchasecard"
+# we are creating an object called bcrypt, 
+# which is made by invoking the function Bcrypt with our app as an argument
+bcrypt = Bcrypt(app)
 # invoke the connectToMySQL function and pass it the name of the database we're usingcopy
 # connectToMySQL returns an instance of MySQLConnection, which we will store in the variable 'mysql'
 mysql = connectToMySQL('mydb')
@@ -44,13 +48,17 @@ def create():
     # check to see if our validation returned any flashes
     if '_flashes' in session.keys():
         return redirect("/")
-    #If no flashes have been returned add the user to the db and login
+    #If no flashes have been returned, encrypt the password, add the user to the db and login
     else:
+        data['password'] = bcrypt.generate_password_hash(data['password'])
+        print("HASHPASS= ", data['password'])
         mysql.query_db(query, data)
         session["name"] = request.form['input_first_name']
         flash("You've been successfully registered")
         return render_template('/success.html')
 
+#This route will query the database for all registrations (more efficient to do it by email address in the future)
+#if the email matches an email in the db and the hashed pw also equals what we have in the database log us in.
 @app.route('/process_login', methods=['POST'])
 def process_login():
     all_registrations = mysql.query_db("SELECT * FROM registrations")
@@ -59,13 +67,13 @@ def process_login():
             'password': request.form['login_password']
             }
     for email in all_registrations:
-        if data['email'] == email['email'] and data['password'] == email['password']:
-            session['id'] = email['id']
-            session["name"] = email['first_name']
-            return render_template('/success.html')
-        else:
-            flash("That combo doesn't work!")
-            return redirect('/')
+        if data['email'] == email['email'] and bcrypt.check_password_hash(email['password'], data['login_password']):
+                session['id'] = email['id']
+                session["name"] = email['first_name']
+                return render_template('/success.html')
+    else:
+        flash("That combo doesn't work!")
+        return redirect('/')
 
 # How we will be logging out
 @app.route('/destroy_session')

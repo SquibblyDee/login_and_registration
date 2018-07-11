@@ -88,15 +88,6 @@
                 <h2>Login here!</h2>
                 <form action='/process_login', method='post'>
                     <div class="form-group">
-                        {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                                {% for message in messages %}
-                                    {%if "combo" in message %}
-                                    <p>{{message}}</p>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                        {% endwith %}
                         <label for="login_email">Email:</label>
                         <input type="email" name="login_email" class="form-control" id="login_email" placeholder="Enter email">
                     </div>
@@ -104,6 +95,15 @@
                         <label for="login_password">Password:</label>
                         <input type="password" name="login_password" class="form-control" id="login_password" placeholder="Password">
                     </div>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                {%if "combo" in message %}
+                                <p>{{message}}</p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>

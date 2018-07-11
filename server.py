@@ -41,9 +41,10 @@ def create():
     for email in all_registrations:
         if data['email'] == email['email']:
             flash('Email is already taken!')
-    # return "reserve"
+    # check to see if our validation returned any flashes
     if '_flashes' in session.keys():
         return redirect("/")
+    #If no flashes have been returned add the user to the db and login
     else:
         mysql.query_db(query, data)
         session["name"] = request.form['input_first_name']
@@ -59,12 +60,12 @@ def process_login():
             }
     for email in all_registrations:
         if data['email'] == email['email'] and data['password'] == email['password']:
-            session['logged_in']=True
+            session['id'] = email['id']
             session["name"] = email['first_name']
             return render_template('/success.html')
         else:
             flash("That combo doesn't work!")
-            redirect('/')
+            return redirect('/')
 
 # How we will be logging out
 @app.route('/destroy_session')

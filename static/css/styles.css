@@ -19,3 +19,11 @@
     display: inline-block;
     vertical-align: top;
 }
+
+.registration p, .login p{
+    color: red;
+}
+
+.success{
+    color: green;
+}

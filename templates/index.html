@@ -14,7 +14,7 @@
             <h1 class="heading">Login and Registration</h1>
             <div class="registration">
                 <h2>Register here!</h2>
-                <form action="/process", method='post'>
+                <form action="/process" , method='post'>
                     <div class="form-group">
                         <label for="input_first_name">First name:</label>
                         <!-- loop through our flash messages and filter them for "Email" -->
@@ -69,7 +69,7 @@
                         <input type="password" name="input_password" class="form-control" id="input_password" placeholder="Password">
                     </div>
                     <div class="form-group">
-                        <label for="input__confirm_password">Confirm password:</label>
+                        <label for="input_confirm_password">Confirm password:</label>
                         {% with messages = get_flashed_messages() %}
                             {% if messages %}
                                 {% for message in messages %}
@@ -86,7 +86,7 @@
             </div>
             <div class="login">
                 <h2>Login here!</h2>
-                <form action='/process_login', method='post'>
+                <form action='/process_login' , method='post'>
                     <div class="form-group">
                         <label for="login_email">Email:</label>
                         <input type="email" name="login_email" class="form-control" id="login_email" placeholder="Enter email">

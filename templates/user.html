@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Advanced Login - Normal User</title>
+        <!-- linking a css style sheet -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+        <!-- Linking Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!-- linking a javascript file -->
+        <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script> -->
+    </head>
+    <body>
+        <div class="container">
+            <div class='heading'>
+                <h1>Advanced Login - Normal User Page</h1>
+                <form action='/destroy_session'>
+                    <button type="submit" class="btn btn-primary float-right">Logout</button>
+                </form>
+            </div>
+            <h3>Hello {{ session['name'] }}! You're just a normal user. Until we add some features you can't do much yet... Sorry. </h3>
+        </div>
+    </body>
+</html>

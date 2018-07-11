@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Login and Registration</title>
+        <title>Advanced Login</title>
         <!-- linking a css style sheet -->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
         <!-- Linking Bootstrap -->
@@ -11,10 +11,33 @@
     </head>
     <body>
         <div class="container">
-            <h1 class="heading">Login and Registration</h1>
+            <h1 class="heading">Advanced Login</h1>
+            <div class="login">
+                <h2><u>Login</u></h2>
+                <form class='form-horizontal' role='form' action='/process_login' , method='post'>
+                    <div class="form-group">
+                        <label for="login_email">Email:</label>
+                        <input type="email" name="login_email" class="form-control" id="login_email" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="login_password">Password:</label>
+                        <input type="password" name="login_password" class="form-control" id="login_password" placeholder="Password">
+                    </div>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                {%if "combo" in message %}
+                                <p>{{message}}</p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <button type="submit" class="btn btn-primary float-right">Submit</button>
+                </form>
+            </div>
             <div class="registration">
-                <h2>Register here!</h2>
-                <form action="/process" , method='post'>
+                <h2><u>Registration</u></h2>
+                <form class='form-horizontal' role='form' action="/process" , method='post'>
                     <div class="form-group">
                         <label for="input_first_name">First name:</label>
                         <!-- loop through our flash messages and filter them for "Email" -->
@@ -81,33 +104,9 @@
                         {% endwith %}
                         <input type="password" name="input_confirm_password" class="form-control" id="input_confirm_password" placeholder="Password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary float-right">Submit</button>
                 </form>
             </div>
-            <div class="login">
-                <h2>Login here!</h2>
-                <form action='/process_login' , method='post'>
-                    <div class="form-group">
-                        <label for="login_email">Email:</label>
-                        <input type="email" name="login_email" class="form-control" id="login_email" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="login_password">Password:</label>
-                        <input type="password" name="login_password" class="form-control" id="login_password" placeholder="Password">
-                    </div>
-                    {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                            {% for message in messages %}
-                                {%if "combo" in message %}
-                                <p>{{message}}</p>
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                    {% endwith %}
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-            
         </div>
     </body>
 </html>

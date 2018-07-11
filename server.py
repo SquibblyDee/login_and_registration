@@ -23,7 +23,7 @@ def index():
 def create():
     # Build our MySQL query here
     all_registrations = mysql.query_db("SELECT * FROM registrations")
-    query = "INSERT INTO registrations (first_name, last_name, email, password, created_at, updated_at) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s, NOW(), NOW());"
+    query = "INSERT INTO registrations (first_name, last_name, email, password, created_at, updated_at, status) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s, NOW(), NOW(), 1);"
     data =  {
             'first_name': request.form['input_first_name'],
             'last_name':  request.form['input_last_name'],
@@ -55,7 +55,7 @@ def create():
         mysql.query_db(query, data)
         session["name"] = request.form['input_first_name']
         flash("You've been successfully registered")
-        return render_template('/success.html')
+        return render_template('/user.html')
 
 #This route will query the database for all registrations (more efficient to do it by email address in the future)
 #if the email matches an email in the db and the hashed pw also equals what we have in the database log us in.
@@ -67,12 +67,15 @@ def process_login():
             'password': request.form['login_password']
             }
     for email in all_registrations:
-        if data['email'] == email['email'] and bcrypt.check_password_hash(email['password'], data['login_password']):
+        print("EP= ",email['password'])
+        print("LP= ",data['login_password'])
+        if data['email'] == email['email'] and bcrypt.check_password_hash(email['password'], request.form['login_password']):
                 session['id'] = email['id']
                 session["name"] = email['first_name']
                 return render_template('/success.html')
     else:
         flash("That combo doesn't work!")
+        print(request.form['login_password'])
         return redirect('/')
 
 # How we will be logging out

@@ -1,23 +1,31 @@
 *{
     margin: 0px;
     padding: 0px;
-    /* outline: 1px solid red; */
+    outline: 1px solid red;
 }
 
 .heading{
     margin: 2% 0% 2% 0%;
+    padding: 2%;
+    background-color: aquamarine;
+    outline: 2px solid black;
+}
+
+.heading h1{
+    display: inline-block;
+}
+
+.heading button{
+    display: inline-block !important;
 }
 
 .registration{
-    width: 45%;
-    display: inline-block;
-    margin-right: 3%;
+    width: 100%;
 }
 
 .login{
-    width: 45%;
-    display: inline-block;
-    vertical-align: top;
+    width: 100%;
+    margin-bottom: 5%;
 }
 
 .registration p, .login p{
@@ -26,4 +34,8 @@
 
 .success{
     color: green;
+}
+
+button{
+    box-shadow: 2px 2px black;
 }

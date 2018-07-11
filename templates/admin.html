@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>My Friends</title>
+        <title>Advanced Login - Admin Dashboard</title>
         <!-- linking a css style sheet -->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
         <!-- Linking Bootstrap -->
@@ -11,21 +11,14 @@
     </head>
     <body>
         <div class="container">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        {%if "registered" in message %}
-                        <p class='success'>{{message}}<p>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
             <div class='heading'>
-                <h1>Welcome, you've been logged in {{ session['name'] }}!</h1>
+                <h1>Advanced Login - Admin Page</h1>
+                <p>Welcome {{ session['name'] }}!</p>
+                <form action='/destroy_session'>
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                </form>
             </div>
-            <form action='/destroy_session'>
-                <button type="submit" class="btn btn-primary">Logout</button>
-            </form>
+            <h3>Hello {{ session['name'] }}! You're just a normal user. Until we add some features you can't do much yet... Sorry. </h3>
         </div>
     </body>
 </html>

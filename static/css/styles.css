@@ -19,3 +19,7 @@
     display: inline-block;
     vertical-align: top;
 }
+
+p{
+    color: red;
+}

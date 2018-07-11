@@ -11,8 +11,16 @@
     </head>
     <body>
         <div class="container">
-            <p>green flash goes here on successful registration</p>
-            <h1>Welcome, you've been logged in, ***NAME***</h1>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        {%if "successfully" in message %}
+                        <p>{{message}}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <h1>Welcome, you've been logged in, {{ session["name"] }}</h1>
             <p> logout button goes here</p>
         </div>
     </body>

@@ -47,7 +47,7 @@
                         {% with messages = get_flashed_messages() %}
                             {% if messages %}
                                 {% for message in messages %}
-                                    {%if "taken" in message %}
+                                    {%if "taken" in message or "Email" in message %}
                                     <p>{{message}}</p>
                                     {% endif %}
                                 {% endfor %}

@@ -29,17 +29,15 @@ def create():
             }
     # Begin field validation
     if len(data['first_name']) < 2 :
-        print("First name must be 2 or more characters")
         flash("First name must be 2 or more characters")
     if len(data['first_name']) < 2 :
-        print("Last name must be 2 or more characters")
         flash("Last name must be 2 or more characters")
     if len(data['password']) < 8 :
-        print("Password must be 8 or more characters")
         flash("Password must be 8 or more characters")
     elif data['password'] != data['password_confirm'] :
-        print("Passwords must match!")
         flash("Passwords must match!")
+    if len(data['email']) < 2 :
+        flash("Email required")
     for email in all_registrations:
         if data['email'] == email['email']:
             flash('Email is already taken!')
@@ -48,13 +46,11 @@ def create():
         return redirect("/")
     else:
         mysql.query_db(query, data)
-        print("DATA ADDED")
         session["name"] = request.form['input_first_name']
-        print("LOGGED IN")
         flash("You've been successfully registered")
         return render_template('/success.html')
 
-# How we might log out, also good for testing
+# How we will be logging out
 @app.route('/destroy_session')
 def destroy():
     session.clear()

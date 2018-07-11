@@ -50,6 +50,22 @@ def create():
         flash("You've been successfully registered")
         return render_template('/success.html')
 
+@app.route('/process_login', methods=['POST'])
+def process_login():
+    all_registrations = mysql.query_db("SELECT * FROM registrations")
+    data =  {
+            'email': request.form['login_email'],
+            'password': request.form['login_password']
+            }
+    for email in all_registrations:
+        if data['email'] == email['email'] and data['password'] == email['password']:
+            session['logged_in']=True
+            session["name"] = email['first_name']
+            return render_template('/success.html')
+        else:
+            flash("That combo doesn't work!")
+            redirect('/')
+
 # How we will be logging out
 @app.route('/destroy_session')
 def destroy():

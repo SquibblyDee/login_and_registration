@@ -86,8 +86,17 @@
             </div>
             <div class="login">
                 <h2>Login here!</h2>
-                <form>
+                <form action='/process_login', method='post'>
                     <div class="form-group">
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {%if "combo" in message %}
+                                    <p>{{message}}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                         <label for="login_email">Email:</label>
                         <input type="email" name="login_email" class="form-control" id="login_email" placeholder="Enter email">
                     </div>

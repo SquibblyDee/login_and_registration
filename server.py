@@ -43,34 +43,16 @@ def create():
     for email in all_registrations:
         if data['email'] == email['email']:
             flash('Email is already taken!')
-    # check for returned flashes from the field validations
+    # return "reserve"
     if '_flashes' in session.keys():
         return redirect("/")
-    # If no flashes exist add the entry to our db
     else:
         mysql.query_db(query, data)
         print("DATA ADDED")
         session["name"] = request.form['input_first_name']
-        print("SESH NAME= ", session["name"])
         print("LOGGED IN")
         flash("You've been successfully registered")
         return render_template('/success.html')
-
-
-@app.route('/process_login', methods=['POST'])
-def process_login():
-    # Build our MySQL query here
-    full_query = mysql.query_db("SELECT * FROM registrations")
-    # query = "INSERT INTO registrations (first_name, last_name, email, password, created_at, updated_at) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s, NOW(), NOW());"
-    data =  {
-            'login_email': request.form['login_email'],
-            'login_password': request.form['login_password'],
-            }
-    for email in full_query:
-        if data['login_email'] == email['email'] and data['login_password'] == email['password']:
-            return redirect('/success.html')
-        else:
-            return redirect('/')
 
 # How we might log out, also good for testing
 @app.route('/destroy_session')
